@@ -2,13 +2,26 @@
 
 using namespace std;
 
-void Chainer::putData(string ask_, set<string> agenda_, list<CrossOutImplication> knowledge_, list<string> entailed_)
+Chainer::Chainer(set<string> agenda_, list<CrossOutImplication> knowledge_)
 {
-    clear();
+    putData(agenda_, knowledge_);
+}
+
+void Chainer::setAsk(string ask_)
+{
     ask=ask_;
+}
+
+void Chainer::putData(set<string> agenda_, list<CrossOutImplication> knowledge_)
+{
     agenda=agenda_;
     knowledge=knowledge_;
-    entailed=entailed_;
+    entailed.clear();
+}
+
+list<string> Chainer::getEntailed()
+{
+    return entailed;
 }
 
 void Chainer::clear()

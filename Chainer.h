@@ -1,3 +1,4 @@
+#pragma once
 #include <set>
 #include <list>
 #include <string>
@@ -16,7 +17,11 @@ class Chainer
     std::list<std::string> entailed;
 
     public:
-    void putData(std::string ask_, std::set<std::string> agenda_, std::list<CrossOutImplication> knowledge_, std::list<std::string> entailed_);
+    Chainer(std::set<std::string> agenda_, std::list<CrossOutImplication> knowledge_);
+    virtual ~Chainer() {};
+    void setAsk (std::string ask_);
+    void putData(std::set<std::string> agenda_, std::list<CrossOutImplication> knowledge_);
+    std::list<std::string> getEntailed();
     void clear();
     virtual bool solve() = 0;
 };

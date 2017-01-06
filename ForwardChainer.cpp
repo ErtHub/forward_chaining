@@ -10,19 +10,22 @@ bool ForwardChainer::solve()
         agenda.erase(agenda.begin());
         entailed.push_back(p);
 
-        for(auto i:knowledge)
+        for(auto i = knowledge.begin(); i!=knowledge.end(); ++i)
         {
+            //i->print();
             string q;
-            if(i.crossOut(p)==0 && i.applies())
+            int t;
+            if((t=i->crossOut(p))==0 && i->applies())
             {
-                q = i.getConclusion();
-                agenda.insert(q);
+                q = i->getConclusion();
                 if(q==ask)
                     return true;
                 agenda.insert(q);
             }
+            //cout << t << endl;
+            //if(i->applies()) cout << "mati" << endl;
         }
     }
     return false;
 }
-//TODO: constructors, destructors, data extraction
+//TODO: data extraction
