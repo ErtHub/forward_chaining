@@ -1,6 +1,14 @@
 #include "DataReader.h"
+#include <algorithm>
 
 using namespace std;
+
+string eliminateNegation(string&& s)
+{
+    char neg = '~';
+    int counter = count(s.begin(), s.end(), neg);
+    return res = counter%2==0 ? s.substr(s.rfind(neg) + 1, s.size()) : s.substr(s.rfind(neg), s.size());
+}
 
 int DataReader::readData(istream& is, set<string>& agenda, list<CrossOutImplication>& knowledge)
 {
@@ -22,11 +30,11 @@ int DataReader::readData(istream& is, set<string>& agenda, list<CrossOutImplicat
             auto sbend = sbstr.find(conj);
             while(sbend!=string::npos)
             {
-                conditions.insert(sbstr.substr(sbstart, sbend-sbstart));
+                conditions.insert(eliminateNegation(sbstr.substr(sbstart, sbend-sbstart)));
                 sbstart = sbend + conj.length();
                 sbend = sbstr.find(conj, sbstart);
             }
-            conditions.insert(sbstr.substr(sbstart, sbend));
+            conditions.insert(eliminateNegation(sbstr.substr(sbstart, sbend)));
             start = end + ifThen.length();
             end = string::npos;
         }
@@ -36,11 +44,11 @@ int DataReader::readData(istream& is, set<string>& agenda, list<CrossOutImplicat
         end = sbstr.find(conj);
         while(end!=string::npos)
         {
-            statements.insert(sbstr.substr(start, end-start));
+            statements.insert(eliminateNegation(sbstr.substr(start, end-start)));
             start = end + conj.length();
             end = sbstr.find(conj, start);
         }
-        statements.insert(sbstr.substr(start, end));
+        statements.insert(eliminateNegation(sbstr.substr(start, end)));
 
         if(conditions.empty())
         {
