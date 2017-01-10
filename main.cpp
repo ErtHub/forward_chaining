@@ -12,7 +12,7 @@ int main()
 {
     string ask, path;
     bool answer;
-    set<string> agenda;
+    Agenda agenda;
     list<CrossOutImplication> knowledge;
     list<string> entailed;
     ifstream ifs;

@@ -7,10 +7,13 @@ string eliminateNegation(string&& s)
 {
     char neg = '~';
     int counter = count(s.begin(), s.end(), neg);
-    return res = counter%2==0 ? s.substr(s.rfind(neg) + 1, s.size()) : s.substr(s.rfind(neg), s.size());
+    if(counter%2==0)
+        return s.substr(s.rfind(neg) + 1, s.size());
+    else
+        return s.substr(s.rfind(neg), s.size());
 }
 
-int DataReader::readData(istream& is, set<string>& agenda, list<CrossOutImplication>& knowledge)
+int DataReader::readData(istream& is, Agenda& agenda, list<CrossOutImplication>& knowledge)
 {
     string str, sbstr;
     string ifThen = "=>";
@@ -53,7 +56,10 @@ int DataReader::readData(istream& is, set<string>& agenda, list<CrossOutImplicat
         if(conditions.empty())
         {
             for(auto i:statements)
-                agenda.insert(i);
+            {
+                if(agenda.add(i) < 0)
+                    cout << "Uwaga: wykryto sprzeczność: " << i << " & " << Agenda::negated(i) << endl;
+            }
         }
         else
         {

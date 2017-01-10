@@ -4,10 +4,17 @@ using namespace std;
 
 bool ForwardChainer::solve()
 {
-    while(!agenda.empty())
+    for(auto it = agenda.begin(); it != agenda.end(); ++it)
     {
-        string p = *(agenda.begin());
-        agenda.erase(agenda.begin());
+        string p = *it;
+        if(p==Agenda::negated(ask))
+        {
+            cout << "Udowodniono nieprawdziwość tezy." << endl;
+            return false;
+        }
+        else if(p==ask)
+            return true;
+
         entailed.push_back(p);
 
         for(auto i = knowledge.begin(); i!=knowledge.end(); ++i)
@@ -18,12 +25,17 @@ bool ForwardChainer::solve()
             if((t=i->crossOut(p))==0 && i->applies())
             {
                 q = i->getConclusion();
-                if(q==ask)
+                if(q==Agenda::negated(ask))
+                {
+                    cout << "Udowodniono nieprawdziwość tezy." << endl;
+                    return false;
+                }
+                else if(q==ask)
                     return true;
-                agenda.insert(q);
+
+                if(agenda.add(q) < 0)
+                    cout << "Uwaga: wykryto sprzeczność: " << q << " & " << Agenda::negated(q) << endl;;
             }
-            //cout << t << endl;
-            //if(i->applies()) cout << "mati" << endl;
         }
     }
     return false;

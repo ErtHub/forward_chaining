@@ -2,7 +2,7 @@
 
 using namespace std;
 
-Chainer::Chainer(set<string> agenda_, list<CrossOutImplication> knowledge_)
+Chainer::Chainer(Agenda agenda_, list<CrossOutImplication> knowledge_)
 {
     putData(agenda_, knowledge_);
 }
@@ -12,7 +12,7 @@ void Chainer::setAsk(string ask_)
     ask=ask_;
 }
 
-void Chainer::putData(set<string> agenda_, list<CrossOutImplication> knowledge_)
+void Chainer::putData(Agenda agenda_, list<CrossOutImplication> knowledge_)
 {
     agenda=agenda_;
     knowledge=knowledge_;

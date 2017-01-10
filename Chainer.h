@@ -3,13 +3,14 @@
 #include <list>
 #include <string>
 #include "CrossOutImplication.h"
+#include "Agenda.h"
 
 class Chainer
 {
     protected:
     std::string ask;
 
-    std::set<std::string> agenda;
+    Agenda agenda;
 
     //std::list<std::string> facts;
     std::list<CrossOutImplication> knowledge;
@@ -17,10 +18,10 @@ class Chainer
     std::list<std::string> entailed;
 
     public:
-    Chainer(std::set<std::string> agenda_, std::list<CrossOutImplication> knowledge_);
+    Chainer(Agenda agenda_, std::list<CrossOutImplication> knowledge_);
     virtual ~Chainer() {};
     void setAsk (std::string ask_);
-    void putData(std::set<std::string> agenda_, std::list<CrossOutImplication> knowledge_);
+    void putData(Agenda agenda_, std::list<CrossOutImplication> knowledge_);
     std::list<std::string> getEntailed();
     void clear();
     virtual bool solve() = 0;
