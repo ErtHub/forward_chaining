@@ -17,6 +17,7 @@ int main()
     list<string> entailed;
     ifstream ifs;
 
+    /* Read facts and rules from file */
     cout << "Sciezka do pliku z wiedza:" << endl;
     cin >> path;
 
@@ -34,10 +35,15 @@ int main()
 
     ForwardChainer chainer(agenda, knowledge);
 
+    /* Read ask from stdin */
     cout << "Zapytanie:" << endl;
     cin >> ask;
     chainer.setAsk(ask);
+
+    /* Run forward chainer */
     answer = chainer.solve();
+
+    /* Get list of symbols which was used to infer the goal */
     entailed = chainer.getEntailed();
     auto iter = entailed.begin();
     string chain = (*iter);
@@ -48,6 +54,7 @@ int main()
         chain+=(*iter);
     }
 
+    /* Print reuslts of forward chaining */
     if(answer)
         cout << "Tak: ";
     else

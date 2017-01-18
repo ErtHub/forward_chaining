@@ -15,15 +15,18 @@ bool ForwardChainer::solve()
         else if(p==ask)
             return true;
 
-        entailed.push_back(p);
-
+        /* cross out p from rules which have p in their premises set */
         for(auto i = knowledge.begin(); i!=knowledge.end(); ++i)
         {
-            //i->print();
             string q;
             int t;
+
+            /* if whole premises set was crossed out, rule's conclusion has been inferred */
             if((t=i->crossOut(p))==0 && i->applies())
             {
+                /* save rule's premises so that they could be printed later */
+                set<string> premise = i->getPremise();
+                entailed.insert(entailed.end(), premise.begin(), premise.end());
                 q = i->getConclusion();
                 if(q==Agenda::negated(ask))
                 {
@@ -40,4 +43,3 @@ bool ForwardChainer::solve()
     }
     return false;
 }
-//TODO: data extraction

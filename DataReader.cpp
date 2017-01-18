@@ -3,6 +3,14 @@
 
 using namespace std;
 
+/**
+ * Eliminates multiple negations from symbol.
+ * If symbol is prepended with odd number of negation
+ * signs returned symbol contains 1 negation symbol.
+ * Otherwise returned symbol hasn't got any negation symbol.
+ * @param s Symbol to be examinated (r-value)
+ * @return symbol with reduced number of negations
+ */
 string eliminateNegation(string&& s)
 {
     char neg = '~';
@@ -13,7 +21,7 @@ string eliminateNegation(string&& s)
         return s.substr(s.rfind(neg), s.size());
 }
 
-int DataReader::readData(istream& is, Agenda& agenda, list<CrossOutImplication>& knowledge)
+void DataReader::readData(istream& is, Agenda& agenda, list<CrossOutImplication>& knowledge)
 {
     string str, sbstr;
     string ifThen = "=>";
@@ -70,5 +78,4 @@ int DataReader::readData(istream& is, Agenda& agenda, list<CrossOutImplication>&
         conditions.clear();
         statements.clear();
     }
-    return 0;
 }
